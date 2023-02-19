@@ -1,0 +1,375 @@
+{% extends 'Mbase.html' %} {% load static %} 
+{% block title %} Listen latest Music from all around the world {% endblock title %} 
+{% block header %}
+<link rel="stylesheet" href="{% static 'Music/css/h.css' %}" />
+<link rel="stylesheet" href="{% static 'Music/css/sidebar.css' %}" />
+<!-- Boxicons CDN Link -->
+<link
+  href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+  rel="stylesheet"
+/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/min/tiny-slider.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css"
+/>
+
+{% endblock header %} {% block body %}
+
+<div class="main-container">
+  <div class="iner-main-cont">
+    {% include 'components/sidebar.html' %}
+    <div class="middle-container">
+      {% include 'components/audioPlayer.html' %}
+        <div class="swiper mySwiper" id="sld-cont">
+          <div class="swiper-wrapper">
+            <!-- slider box -->
+            <div class="swiper-slide">
+              <img
+                class="banner-img"
+                src="{%static 'Music/img/banner/BANNER_1.webp'%}"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="banner-img"
+                src="{%static 'Music/img/banner/BANNER_2.webp'%}"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="banner-img"
+                src="{%static 'Music/img/banner/BANNER_3.webp'%}"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="banner-img"
+                src="{%static 'Music/img/banner/BANNER_4.webp'%}"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="banner-img"
+                src="{%static 'Music/img/banner/BANNER_5.webp'%}"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="banner-img"
+                src="{%static 'Music/img/banner/BANNER_6.webp'%}"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="banner-img"
+                src="{%static 'Music/img/banner/BANNER_7.webp'%}"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="banner-img"
+                src="{%static 'Music/img/banner/BANNER_8.webp'%}"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="banner-img"
+                src="{%static 'Music/img/banner/BANNER_9.webp'%}"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="banner-img"
+                src="{%static 'Music/img/banner/BANNER_10.webp'%}"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img src="{%static 'Music/img/banner/BANNER_12.webp'%}" />
+            </div>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+        {% if request.user.is_active %}
+        <div class="trending mt-5 container mw-100">
+          <div class="t-heading mb-2 mr-4 d-flex justify-content-between">
+            <h2>Recent</h2>
+            <a href="#">More</a>
+          </div>
+          <div class="trending-container">
+            <ul class="slider-img-sec-recent t-c-imgsec">
+              {% if recentlyPlayed %} {% for song in recentlyPlayed %}
+              <li class="slider-img-box">
+                <div class="img-cont-ss">
+                  <a href="{% url 'song_details' song.id %}">
+                    <img src="{{ song.songImg.url}}"
+                  /></a>
+                  <div class="play-pause-song-btn">
+                    <button class="player-button song-icon-inner h-effect">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#3D3132">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              {% endfor %} {% endif %}
+            </ul>
+          </div>
+        </div>
+        {% endif %}
+        <!-- {% if not query_search %} -->
+        <div class="trending m-0 mt-5 container mw-100">
+          <div class="t-heading mb-2 mr-4 d-flex justify-content-between">
+            <h2>Hindi Songs</h2>
+            <a href="songs/?q=&languages=Hindi">More</a>
+            <!-- {% endif %} -->
+          </div>
+          <div class="trending-container">
+            <ul class="slider-img-sec-hindi t-c-imgsec">
+              {% if hindiSongs %} {% for song in hindiSongs %}
+              <li class="slider-img-box">
+                <div class="img-cont-ss">
+                  <a href="{% url 'song_details' song.id %}">
+                    <img src="{{ song.songImg.url}}"
+                  /></a>
+                  <div class="play-pause-song-btn">
+                    <button class="song-play-but-home song-icon-inner  ">
+                      <i class="fas fa-play"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              {% endfor %} {% endif %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="trending m-0 mt-5 container mw-100">
+          <div class="t-heading mb-2 d-flex justify-content-between">
+            <h2>English songs</h2>
+            <a href="songs/?q=&languages=English">More</a>
+          </div>
+          <div class="trending-container">
+            <ul class="slider-img-sec-english t-c-imgsec">
+              {% if englishSongs %} {% for song in englishSongs %}
+              <li class="slider-img-box">
+                <div class="img-cont-ss">
+                  <a href="{% url 'song_details' song.id %}">
+                    <img src="{{ song.songImg.url}}"
+                  /></a>
+                  <div class="play-pause-song-btn">
+                    <button class="song-play-but-home song-icon-inner  ">
+                      <i class="fas fa-play"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              {% endfor %} {% endif %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="trending m-0 mt-5 container mw-100">
+          <div class="t-heading mb-2 d-flex justify-content-between">
+            <h2>Korean songs</h2>
+            <a href="songs/?q=&languages=Korean">More</a>
+          </div>
+          <div class="trending-container">
+            <ul class="slider-img-sec-korean t-c-imgsec">
+              {% if koreanSongs %} {% for song in koreanSongs %}
+              <li class="slider-img-box">
+                <!-- <a href="{% url 'play_song' song.id %}"
+                > -->
+                <div class="img-cont-ss">
+                  <a href="{% url 'song_details' song.id %}">
+                    <img src="{{ song.songImg.url}}"
+                  /></a>
+                  <div class="play-pause-song-btn">
+                    <button class="song-play-but-home song-icon-inner  ">
+                      <i class="fas fa-play"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              {% endfor %} {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock body %} {% block js %}
+  <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+  {% if request.user.is_authenticated %}
+  <script>
+  var sliderSection = ["recent", "hindi", "english", "korean"];
+  document.querySelector(".play-audio-req-login").style.display = "none";
+  </script>
+  {% else %}
+
+  <script>
+  var sliderSection = ["hindi", "english", "korean"];
+  document.querySelector(".play-audio-req-login").style.display = "block";
+  var audioPlayer = document.querySelector(".play-cont-inner");
+  // console.log(audioPlayer);
+  audioPlayer.style.boxShadow = "inset 0 0 500px rgba(255, 255, 255, .4)";
+  audioPlayer.style.filter = "blur(3px)";
+  </script>
+  {% endif %}
+  <script>
+    
+
+    //   left-mavigation
+
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
+    var chageSize = 78;
+    i = 1;
+    if (i == 1) {
+      menuBtnChange();
+      i = 0;
+    }
+
+    closeBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      menuBtnChange(); //calling the function(optional)
+
+    });
+
+    // searchBtn.addEventListener("click", () => {
+    //   // Sidebar open when you click on the search iocn
+    //   sidebar.classList.toggle("open");
+    //   menuBtnChange(); //calling the function(optional)
+    // });
+
+    // following are the code to change sidebar button(optional)
+    function menuBtnChange() {
+      if (sidebar.classList.contains("open")) {
+        closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+        document.querySelector(".middle-container").style.width =
+          "calc(100% - 210px)";
+        document.querySelector(".play-container").style.width =
+          "calc(100% - 210px)";
+          chageSize = 210;
+        widthMidContainer = window.innerWidth - 210;
+      } else {
+        closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+        document.querySelector(".middle-container").style.width =
+          "calc(100% - 78px)";
+        document.querySelector(".play-container").style.width =
+          "calc(100% - 78px)";
+          chageSize = 78;
+        widthMidContainer = window.innerWidth - 78;
+      }
+    }
+
+    //   slider img
+    var val = window.innerWidth;
+    window.onload = function () {
+      resizeObj();
+    };
+    window.addEventListener("resize", resizeObj);
+    function resizeObj() {
+      console.log("Window width: " + window.innerWidth);
+      val = window.innerWidth - chageSize;
+      for (var i = 0; i < sliderSection.length; i++) {
+        console.log(widthMidContainer);
+        var slider = tns({
+          container: `.slider-img-sec-${sliderSection[i]}`,
+          items: val / 175,
+          slideBy: "page",
+          autoplay: false,
+          controls: false,
+          nav: false,
+          infinite: false,
+          initialIndex: 0,
+          mouseDrag: true,
+          gutter: 20,
+          // responsive: {
+          //   640: {
+          //     edgePadding: 20,
+          //     gutter: 20,
+          //     items: 4,
+          //   },
+          //   700: {
+          //     gutter: 30,
+          //   },
+          //   900: {
+          //     items: 6,
+          //   },
+          // },
+        });
+      }
+      
+      var swiper = new Swiper(".mySwiper", {
+      slidesPerView:  window.innerWidth < 600 ? 1 : 1.5,
+      spaceBetween: 10,
+      centeredSlides: true,
+      grabCursor: true,
+      // loop: true,
+      loop: true,
+      speed: 1200,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: true,
+      },
+      responsive : [
+        {
+          breakpoint: 600,
+          settings: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          }
+        }
+      ]
+    
+    });
+    
+    }
+
+    var widthMidContainer = window.innerWidth - 78;
+    // for (var i = 0; i < sliderSection.length; i++) {
+    //   console.log(widthMidContainer);
+    //   var slider = tns({
+    //     container: `.slider-img-sec-${sliderSection[i]}`,
+    //     items: Math.floor(val / 175),
+    //     slideBy: "page",
+    //     autoplay: false,
+    //     controls: false,
+    //     nav: false,
+    //     infinite: false,
+    //     initialIndex: 0,
+    //     mouseDrag: true,
+    //     gutter: 20,
+    //     // responsive: {
+    //     //   640: {
+    //     //     edgePadding: 20,
+    //     //     gutter: 20,
+    //     //     items: 4,
+    //     //   },
+    //     //   700: {
+    //     //     gutter: 30,
+    //     //   },
+    //     //   900: {
+    //     //     items: 6,
+    //     //   },
+    //     // },
+    //   });
+    // }
+  </script>
+
+  {% endblock js %}
+</div>

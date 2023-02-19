@@ -1,0 +1,456 @@
+{% extends 'Mbase.html' %} {% load static %} {% block title %} Music & Laa Laa
+La La La {% endblock title %} {% block header %}
+<link rel="stylesheet" href="{% static 'Music/css/h.css' %}" />
+<link rel="stylesheet" href="{% static 'Music/css/sidebar.css' %}" />
+<!-- Boxicons CDN Link -->
+<link
+  href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+  rel="stylesheet"
+/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/min/tiny-slider.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css"
+/>
+
+{% endblock header %} {% block body %}
+
+<div class="main-container">
+  <div class="iner-main-cont">
+    <div class="side-navbar">
+      <div class="sidebar">
+        <div class="logo-details">
+          <i class="bx bxl-c-plus-plus icon"></i>
+          <div class="logo_name">CodingLab</div>
+          <i class="bx bx-menu" id="btn"></i>
+        </div>
+        <ul class="nav-list" style="margin-left: -2rem">
+          <li>
+            <i class="bx bx-search"></i>
+            <input type="text" placeholder="Search..." />
+            <span class="tooltip">Search</span>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bx bx-grid-alt"></i>
+              <span class="links_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bx bx-user"></i>
+              <span class="links_name">User</span>
+            </a>
+            <span class="tooltip">User</span>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bx bx-chat"></i>
+              <span class="links_name">Messages</span>
+            </a>
+            <span class="tooltip">Messages</span>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bx bx-pie-chart-alt-2"></i>
+              <span class="links_name">Analytics</span>
+            </a>
+            <span class="tooltip">Analytics</span>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bx bx-folder"></i>
+              <span class="links_name">File Manager</span>
+            </a>
+            <span class="tooltip">Files</span>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bx bx-cart-alt"></i>
+              <span class="links_name">Order</span>
+            </a>
+            <span class="tooltip">Order</span>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bx bx-heart"></i>
+              <span class="links_name">Saved</span>
+            </a>
+            <span class="tooltip">Saved</span>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bx bx-cog"></i>
+              <span class="links_name">Setting</span>
+            </a>
+            <span class="tooltip">Setting</span>
+          </li>
+          <li class="profile">
+            <div class="profile-details">
+              <!--<img src="profile.jpg" alt="profileImg">-->
+              <div class="name_job">
+                <div class="name">Prem Shahi</div>
+                <div class="job">Web designer</div>
+              </div>
+            </div>
+            <i class="bx bx-log-out" id="log_out"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="middle-container">
+      <div class="swiper mySwiper" id="sld-cont">
+        <div class="swiper-wrapper">
+          <!-- slider box -->
+          <div class="swiper-slide">
+            <img
+              class="banner-img"
+              src="{%static 'Music/img/BANNER_1.webp'%}"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img
+              class="banner-img"
+              src="{%static 'Music/img/BANNER_2.webp'%}"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img
+              class="banner-img"
+              src="{%static 'Music/img/BANNER_3.webp'%}"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img
+              class="banner-img"
+              src="{%static 'Music/img/BANNER_4.webp'%}"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img
+              class="banner-img"
+              src="{%static 'Music/img/BANNER_5.webp'%}"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img
+              class="banner-img"
+              src="{%static 'Music/img/BANNER_6.webp'%}"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img
+              class="banner-img"
+              src="{%static 'Music/img/BANNER_7.webp'%}"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img
+              class="banner-img"
+              src="{%static 'Music/img/BANNER_8.webp'%}"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img
+              class="banner-img"
+              src="{%static 'Music/img/BANNER_9.webp'%}"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img
+              class="banner-img"
+              src="{%static 'Music/img/BANNER_10.webp'%}"
+            />
+          </div>
+          <div class="swiper-slide">
+            <img src="{%static 'Music/img/BANNER_12.webp'%}" />
+          </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <!-- {% if request.user.is_active %}
+    <div class="trending mt-5 container">
+      <div class="t-heading mb-2 flex justify-content-space-between">
+        <h2>Recent</h2>
+        <a href="#">More</a>
+      </div>
+      <div class="trending-container">
+        <ul   class="slider-img-sec t-c-imgsec">
+          <li class="item-a">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-b">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-c">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-d">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-e">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-f">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-g">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-h">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-i">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-j">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+        </ul>
+      </div>
+    </div>
+    {% endif %} -->
+
+      <!-- <div class="trending mt-5 container">
+      <div class="t-heading mb-2 flex justify-content-space-between">
+        <h2>Trending now</h2>
+        <a href="#">More</a>
+      </div>
+      <div class="trending-container">
+        <ul id="responsive" class="slider-img-sec t-c-imgsec">
+          <li class="item-a">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-b">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-c">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-d">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-e">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-f">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-g">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-h">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-i">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-j">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+        </ul>
+      </div>
+    </div> -->
+
+      <!-- <div class="trending mt-5 container">
+      <div class="t-heading mb-2 flex justify-content-space-between">
+        <h2>new Release</h2>
+        <a href="#">More</a>
+      </div>
+      <div class="trending-container">
+        <ul   class="slider-img-sec t-c-imgsec">
+          <li class="item-a">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-b">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-c">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-d">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-e">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-f">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-g">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-h">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-i">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+          <li class="item-j">
+            <img src="{%static 'Music/img/newRel_1.jfif'%}" />
+          </li>
+        </ul>
+      </div>
+    </div> -->
+
+      <!-- {% if not query_search %} -->
+      <div class="trending mt-5 container">
+        <div class="t-heading mb-2 flex justify-content-space-between">
+          <h2>Hindi Songs</h2>
+          <a href="#">More</a>
+          <!-- {% endif %} -->
+        </div>
+        <div class="trending-container">
+          <ul class="slider-img-sec-hindi t-c-imgsec">
+            {% if hindiSongs %} {% for song in hindiSongs %}
+            <li class="slider-img-box">
+              <div class="ss">
+                <img src="{{ song.songImg.url}}" />
+              </div>
+            </li>
+            {% endfor %} {% endif %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="trending mt-5 container">
+        <div class="t-heading mb-2 flex justify-content-space-between">
+          <h2>English songs</h2>
+          <a href="#">More</a>
+        </div>
+        <div class="trending-container">
+          <ul class="slider-img-sec-english t-c-imgsec">
+            {% if englishSongs %} {% for song in englishSongs %}
+            <li class="item-a"><img src="{{ song.songImg.url}}" /></li>
+            {% endfor %} {% endif %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="trending mt-5 container">
+        <div class="t-heading mb-2 flex justify-content-space-between">
+          <h2>Korean songs</h2>
+          <a href="#">More</a>
+        </div>
+        <div class="trending-container">
+          <ul class="slider-img-sec-korean t-c-imgsec">
+            {% if koreanSongs %} {% for song in koreanSongs %}
+            <li>
+              <a href="{% url 'play_song' song.id %}"
+                ><img src="{{ song.songImg.url}}"
+              /></a>
+            </li>
+            {% endfor %} {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %} {% block js %}
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1.5,
+    spaceBetween: 10,
+    centeredSlides: true,
+    grabCursor: true,
+    loop: true,
+    speed: 1200,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: true,
+    },
+  });
+
+  //   left-mavigation
+
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+
+  closeBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+
+  searchBtn.addEventListener("click", () => {
+    // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+
+  // following are the code to change sidebar button(optional)
+  function menuBtnChange() {
+    if (sidebar.classList.contains("open")) {
+      closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+    } else {
+      closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+    }
+  }
+
+  //   slider img
+  var sliderSection = ["hindi", "english", "korean"];
+  for (var i = 0; i < sliderSection.length; i++) {
+    var slider = tns({
+      container: `.slider-img-sec-${sliderSection[i]}`,
+      items: 9,
+      slideBy: "page",
+      autoplay: false,
+      controls: false,
+      nav: false,
+      mouseDrag: true,
+      gutter: 20,
+      responsive: {
+        640: {
+          edgePadding: 20,
+          gutter: 20,
+          items: 4,
+        },
+        700: {
+          gutter: 30,
+        },
+        900: {
+          items: 6,
+        },
+      },
+    });
+  }
+  //   let slider = tns({
+  //     container: ".slider-img-sec",
+  //     items: 1,
+  //     slideBy: "page",
+  //     autoplay: true,
+  //     controls: false,
+  //     nav: false,
+  //     mouseDrag: true,
+  //     gutter: 20,
+  //     responsive: {
+  //       640: {
+  //         edgePadding: 20,
+  //         gutter: 20,
+  //         items: 4,
+  //       },
+  //       700: {
+  //         gutter: 30,
+  //       },
+  //       900: {
+  //         items: 6,
+  //       },
+  //     },
+  //   });
+</script>
+
+{% endblock js %}

@@ -1,0 +1,182 @@
+{% extends 'Mbase.html' %} {% load static %} {% block title %} Music & Laa Laa
+La La La {% endblock title %} {% block header %}
+<link rel="stylesheet" href="{% static 'Music/css/h.css' %}" />
+<link rel="stylesheet" href="{% static 'Music/css/song_details.css' %}" />
+<link rel="stylesheet" href="{% static 'Music/css/sidebar.css' %}" />
+
+{% endblock header %} {% block body %}
+<div style="margin-top: 100px;"></div>
+<div class="mini-nav container d-flex">
+  <a href="#">home</a>
+  <div id="playlist">
+    &nbsp;
+    <span><i class="fas fa-circle" style="font-size: 10px"></i></span>playlist
+  </div>
+  <div id="playlist">
+    &nbsp;
+    <span><i class="fas fa-circle" style="font-size: 10px"></i></span
+    >{{album.album}}: {{album.language}}
+  </div>
+</div>
+
+<!-- main website -->
+<div class="play-container">
+  <div class="play-cont-inner">
+    <div class="last-played-song-img">
+      <img src="{{ last_played.songImg.url}}" alt="song-img" />
+      <div class="song-info">
+        <p class="song-name">{{ last_played.name }}</p>
+        <p class="song-artist">{{ last_played.singer }}</p>
+      </div>
+      <div class="song-functionality-play">
+        <i class="song-icon h-effect fas fa-random"></i>
+        <div class="song-icon">
+          <i class="song-icon-inner h-effect fas fa-step-backward"></i>
+          <i class="song-icon-inner h-effect fas fa-play" onclick=""></i>
+          <i class="song-icon-inner h-effect fas fa-step-forward"></i>
+        </div>
+        <i class="song-icon h-effect fas fa-redo"></i>
+      </div>
+    </div>
+    {% if last_played.songFile %}
+    <audio class="fc-media" style="width: 100%">
+      <source src="{{last_played.songFile.url}}" type="audio/mp3" />
+    </audio>
+    {% endif %}
+
+    <div class="song-progress">
+      <div class="song-progress-inner">
+        <div class="song-progress-bar">
+          <div class="song-progress-bar-inner"></div>
+        </div>
+        <div class="song-progress-time">
+          <div class="song-progress-time-start">0:00 /</div>
+          <div class="song-progress-time-end">3:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="middle-part">
+  <div class="album_feature">
+    <div class="album-img">
+      <!-- <img src="{%static 'img/music/album_details/artist-img.webp' %}"> -->
+      {% if album.songImg %}
+      <img id="album-img" src="{{ album.songImg.url }}" />
+      {% else %}
+      <h3>Loading....</h3>
+      {% endif %}
+    </div>
+    <h2>feature artists</h2>
+    <div id="fet-art-cont">
+      {% if feat_singer_list %} {% for singer in feat_singer_list %}
+      <div class="feature-artists">
+        <div class="artists">
+          <img src="{%static 'Music/img/artist-img.webp' %}" />
+        </div>
+        <h4>{{singer}}</h4>
+      </div>
+      {% endfor %} {% endif %}
+
+      <div id="more-art-div">
+        <btn id="more-artists" type="button" onclick="moreArtist()"
+          >More Artist</btn
+        >
+      </div>
+    </div>
+    <div id="hidden-artists-cont">
+      <div class="ex-cont">
+        {% if hide_singer_list %} {% for singer in hide_singer_list %}
+        <div class="feature-artists">
+          <div class="artists">
+            <img src="{%static 'Music/img/artist-img.webp' %}" />
+          </div>
+          <h4>{{singer}}</h4>
+        </div>
+        {% endfor %} {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="album-song-details">
+    <div class="album-details">
+      <h1>{{album.name}} : Language</h1>
+      <h6>By {{album.singer}}</h6>
+      <h6>{{album.rating}}</h6>
+
+      <div class="album-brief">
+        <p>845K Followers</p>
+        <li>{{album.song_set.count}} songs</li>
+        <li>124 min</li>
+      </div>
+      <div class="album-option">
+        <div class="album-left-option">
+          <button id="play-song" onclick="audioFunction">
+            <i class="fas fa-play"></i>Play Songs
+          </button>
+          <button id="follow"><i class="fas fa-plus"></i>follow</button>
+          <button id="download"><i class="fas fa-download"></i>download</button>
+        </div>
+        <div class="album-right-option">
+          <button class="share-album"><i class="fas fa-share"></i></button>
+          <button class="album-more-option">
+            <i class="fas fa-ellipsis-v fa-lg"></i>
+          </button>
+          <!-- hidden part -->
+          <!-- <div class="hidden-album-option">
+                            <p>Add to Queue</p>
+                            <p>Save Playlist</p>
+                        </div> -->
+        </div>
+      </div>
+    </div>
+
+    {% if song_list.count > 0 %} {% for song in song_list %}
+    <div class="album-song">
+      <div class="album-song-container">
+        {% if song.songImg %}
+        <img
+          class="album-song-img"
+          src="{{ song.songImg.url}}"
+          type="jpg/jfif/png"
+        />
+        {% else %}
+        <img
+          class="album-song-img"
+          src="{%static 'img/music/default_song.png'%}"
+        />
+        {% endif %}
+        <div class="song-details">
+          <p>{{song.name}}</p>
+          <p>{{song.singer}} - {{song.language}}</p>
+        </div>
+      </div>
+      <!-- <div class="audio-play"> -->
+      {% if song.songFile %}
+      <audio controls class="song-play">
+        <source src="{{ song.songFile.url }}" type="audio/mpeg" />
+      </audio>
+      {% else %}
+      <p>We will upload it soon.</p>
+      {% endif %}
+      <!-- </div> -->
+    </div>
+    {% endfor %} {% else %}
+    <h3>There isn't any song in this album.</h3>
+    {% endif %}
+  </div>
+</div>
+<!-- <script src="{% static 'js/music/music.js' %}"></script> -->
+{% endblock body %}{% block js %}
+<script>
+  var audioFunction = () => {
+    console.log("hello");
+    if (song.songFile) var currentSong = Audio(i);
+    if (currentSong.paused) {
+      currentSong.play();
+    } else {
+      currentSong.pause();
+    }
+  };
+</script>
+{% endblock js %}

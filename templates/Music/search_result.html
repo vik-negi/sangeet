@@ -1,0 +1,74 @@
+{% extends 'Mbase.html' %} {% load static %} {% load socialaccount %} 
+{% block title %} {{query_search}}} {% endblock title %} 
+{% block header %}
+<link rel="stylesheet" href="{% static 'Music/css/h.css' %}" />
+<link rel="stylesheet" href="{% static 'Music/css/search_details.css' %}" />
+
+{% endblock header %}
+{% block body %}
+{% include 'components/audioPlayer.html' %}
+
+<br />
+<div style="margin-top: 100px;"></div>
+<div class="container">
+
+  {% if not query_search %}
+  <header class="section-heading">
+    <h5 class="section-title">ALL SONGS</h5>
+  </header>
+  <hr />
+  {% else %}
+  <header class="section-heading">
+    <h5 class="section-title">SEARCH RESULTS</h5>
+  </header>
+  <hr />
+  {% endif %}
+  <!-- Song list -->
+  <div class="res-container">
+    {% if songs %} {% for song in songs %}
+    <div class="single-result-cont" >
+      <div class="inner-cont-single-res">
+        <div class="slider-img-box">
+          <!-- <a href="{% url 'play_song' song.id %}"
+          > -->
+          <div class="img-cont-ss">
+            <a href="{% url 'song_details' song.id %}">
+              <img src="{{ song.songImg.url}}"
+              class="img-responsive"
+              height="135"
+              width="135"
+              style="border-radius: 8px 8px 8px 8px"
+            /></a>
+            <div class="play-pause-song-btn">
+              <button class="song-play-but-home song-icon-inner  ">
+                <i class="fas fa-play"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- <img
+          src="{{ song.songImg.url}}"
+          class="img-responsive"
+          height="135"
+          width="135"
+          style="border-radius: 8px 8px 8px 8px"
+        />
+        <div class="result-option">
+          <a
+            class="btn btn-outline-light mt-5 mx-1"
+            href="{% url 'play_song' song.id %}"
+            ><i class="fa fa-play" aria-hidden="true"></i
+          ></a>
+          <a
+            class="btn btn-outline-light mt-5 mx-1"
+            href="{% url 'song_details' song.id %}"
+            ><i class="fa fa-info-circle" aria-hidden="true"></i
+          ></a>
+        </div> -->
+      </div>
+    </div>
+    {% endfor %} {% endif %}
+  </div>
+</div>
+
+{% endblock body %}

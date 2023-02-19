@@ -1,0 +1,25 @@
+.res-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    /* margin-right: 65px;
+    margin-left: -15px; */
+    height: 100%;
+}
+.single-result-cont{
+    margin: 15px 15px;
+}
+.single-result-cont, .inner-cont-single-res{
+    width: 135;
+    height: 135;
+}
+.inner-cont-single-res{
+    position: relative;
+}
+.result-option{
+    position: absolute;
+    top: 0px;
+    right: 15px;
+}

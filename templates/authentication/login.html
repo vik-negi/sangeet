@@ -1,0 +1,89 @@
+{% extends 'Mbase.html' %} {% load static %} {% block title %} MusicApp | {{
+title }} {% endblock title %} {% block header %}
+<link rel="stylesheet" href="{% static 'authentication/login.css' %}" />
+<style>
+  .input {
+    background-color: #fff;
+  }
+</style>
+{% endblock header %} {% block body %}
+<div class="flex-r container">
+  <div class="flex-r login-wrapper">
+    <div class="login-text">
+      <div class="logo">
+        <span><i class="fab fa-speakap" style="color: #000"></i></span>
+        <span>Sign In</span>
+      </div>
+      <!-- <h1>Sign Up</h1> -->
+      <!-- <h1>Sign In</h1> -->
+      <p>Welcome back, We are happy to having you</p>
+      {% if messages %}
+      <p>username or password not correct</p>
+      {% endif %} {% for message in messages%}
+      <p
+        id="alert"
+        style="
+          text-decoration: none;
+          font-size: 12px;
+          padding-left: 15px;
+          color: rgb(248, 82, 82);
+          list-style: none;
+        "
+      >
+        {{messages.error}}
+      </p>
+      {% endfor %}
+
+      <form name="loginForm" class="flex-c" method="post">
+        {% csrf_token %}
+        <div class="input-box">
+          <span class="label">username</span>
+          <div class="flex-r input">
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              required
+            />
+            <i class="fas fa-user"></i>
+          </div>
+        </div>
+        <div class="input-box">
+          <span class="label">Password</span>
+          <div class="flex-r input">
+            <input
+              type="password"
+              name="password"
+              placeholder="uyH&5^(oiE)"
+              required
+            />
+            <i class="fas fa-lock"></i>
+          </div>
+        </div>
+        <div class="check">
+          <input type="checkbox" name="" id="" />
+          <span>Keep me loged in</span>
+        </div>
+        <input class="btn" type="submit" value="Signin" />
+        <span class="extra-line">
+          <span>Don't have an account?</span>
+          <a href="{% url 'register' %}">Sign Up</a>
+        </span>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock body %} {% block footer %}
+<script>
+  const clientSideFromValidation = () => {
+    const username = document.forms["loginForm"]["username"];
+    const password = document.forms["loginForm"]["password"];
+    if (username.value == "") {
+      username.style.border = "1px solid red";
+    }
+    if (password.value == "") {
+      password.style.border = "1px solid red";
+    }
+  };
+</script>
+{% endblock footer %}

@@ -1,0 +1,249 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock title %}</title>
+    <link
+      rel="icon"
+      href="{% static 'Music/img/default_song.jpg' %}"
+      type="image/x-icon"
+    />
+    <!-- Font-Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
+    <!-- bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <!-- Google-font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&family=Raleway:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- font-family: 'IBM Plex Sans', sans-serif; -->
+    <!-- navbar css -->
+    <link rel="stylesheet" href="{% static 'Music/css/navbar.css'%}" />
+    <link rel="stylesheet" href="{% static 'Music/css/index.css'%}" />
+
+    <!-- swiper -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
+
+    {% block header %}{% endblock header %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid mr-2" style="margin-left: 2px">
+        <div class="logo-container">
+          <span><i class="fab fa-speakap" style="color: #000"></i></span>
+          <div class="logo-name">Sangeet</div>
+        </div>
+        <!-- <a class="navbar-brand" href="#">Musica</a> -->
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span
+            class="navbar-toggler-icon fas fa-bars"
+            style="font-size: 24px; line-height: 1.3"
+          ></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'index'%}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{%url 'all_songs'%}">All Songs</a>
+            </li>
+          </ul>
+          <div class="wrap">
+          <form class="d-flex me-auto search" role="search" method="get">
+              <input
+                class="form-control me-2 searchTerm"
+                type="search"
+                name="q"
+              value="{{ request.GET.q }}"
+                placeholder="What are you looking for?"
+                aria-label="Search"
+              />
+              <button type="submit" class="searchButton">
+                <i class="fa fa-search"></i>
+              </button>
+              
+              <button type="button" class="filterButton" onclick="openSearchFilter()">
+                <i class="fa fa-sliders-h filterOption"></i>
+            </button>
+            
+            <div class="filterOption-div">
+              <div class="close-filterOption" onclick="closeSearchFilter()">
+                <i class="fa fa-times"></i>
+              </div>
+              <div class="filter-by">
+                  <select
+                    name="languages"
+                    class="custom-select mx-1"
+                    style="border-radius: 5px">
+                    <option selected="selected" disabled>Languages</option>
+                    {% if languages %} {% for language in languages %}
+                    <option value="{{language}}">{{language}}</option>
+                    {% endfor %} {% endif %}
+                  </select>
+                  <select
+                    name="singers"
+                    class="custom-select mx-1"
+                    style="border-radius: 5px"
+                  >
+                    <option selected="selected" disabled>Singers</option>
+                    {% if singers %} {% for singer in singers %}
+                    <option value="{{singer}}">{{singer}}</option>
+                    {% endfor %} {% endif %}
+                  </select>
+              </div>
+            </div>
+          </form>
+        </div>
+          <div class="navbar-nav user-option">
+            {% if request.user.is_active %}
+            <p class="greet">Hii, {{ request.user.username}}</p>
+            <div>
+              <div class="sign-in">
+                <button class="sign-in-btn auth-btn">
+                  <a href="{%url 'logout'%}">logout</a>
+                </button>
+              </div>
+              {% else %}
+              <div class="sign-in">
+                <button class="sign-in-btn auth-btn">
+                  <a href="{% url 'login' %}">sign in</a>
+                </button>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="profile-link">
+            <a href="#"><i class="fas fa-user user-profile"></i></a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    {% block body %}{% endblock body %}
+    <!-- JavaScript Bundle with Popper -->
+    <!-- <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script> -->
+    <script>
+      const playerButton = document.querySelector(".player-button"),
+        audio = document.querySelector("audio"),
+        timeline = document.querySelector(".timeline"),
+        soundButton = document.querySelector(".sound-button"),
+        playIcon = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#3D3132">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+  </svg>
+      `,
+        pauseIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#3D3132">
+  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+</svg>
+      `,
+        soundIcon = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#3D3132">
+  <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" />
+</svg>`,
+        muteIcon = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#3D3132">
+  <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+</svg>`;
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector(".song-progress-time-end").innerHTML = `${(
+          audio.duration / 60
+        ).toFixed(2)} min`;
+        console.log("stcdvgkj");
+      });
+
+      function toggleAudio() {
+        if (audio.paused) {
+          audio.play();
+          playerButton.innerHTML = pauseIcon;
+        } else {
+          audio.pause();
+          playerButton.innerHTML = playIcon;
+        }
+      }
+
+      playerButton.addEventListener("click", toggleAudio);
+
+      function changeTimelinePosition() {
+        const percentagePosition = (100 * audio.currentTime) / audio.duration;
+        timeline.style.backgroundSize = `${percentagePosition}% 100%`;
+        timeline.value = percentagePosition;
+        document.querySelector(".song-progress-time-start").innerHTML =
+          timeline.value;
+      }
+      // window.onload = function () {
+      //   document.querySelector(".song-progress-time-end").innerHTML =
+      //     audio.duration;
+      //   console.log("stcdvgkj");
+      // };
+
+      audio.ontimeupdate = changeTimelinePosition;
+
+      function audioEnded() {
+        playerButton.innerHTML = playIcon;
+      }
+
+      audio.onended = audioEnded;
+
+      function changeSeek() {
+        const time = (timeline.value * audio.duration) / 100;
+        audio.currentTime = time;
+      }
+
+      timeline.addEventListener("change", changeSeek);
+
+      function toggleSound() {
+        audio.muted = !audio.muted;
+        soundButton.innerHTML = audio.muted ? muteIcon : soundIcon;
+      }
+
+      soundButton.addEventListener("click", toggleSound);
+
+      function openSearchFilter (){
+        document.querySelector(".filterOption-div").style.display = "block";
+      };
+      function closeSearchFilter(){
+        document.querySelector(".filterOption-div").style.display = "none";
+      };
+    </script>
+
+    {% block js %} {% endblock js %}
+  </body>
+</html>
