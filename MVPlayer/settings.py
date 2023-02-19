@@ -36,8 +36,8 @@ SECRET_KEY = 'django-insecure-&v#7hg25wnqjuo0#5dtx3=y70g=o!t^p&ute753)lqg30(itt-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -150,8 +150,8 @@ CLOUDINARY_STORAGE = {
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR/'static']
 # STATIC_ROOT = BASE_DIR/'static'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 MEDIA_URL = 'media/'
 
 import mimetypes
@@ -176,6 +176,13 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # LOGIN_URL = 'login'
 # LOGOUT_URL = 'logout'
