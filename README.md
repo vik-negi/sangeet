@@ -21,11 +21,11 @@ python manage.py migrate
 
 
 ## Screenshots
-![alt text](https://github.com/vikramnegiofficial/MVPlayer/blob/main/static/screenshots/home1.png)\
-![alt text](https://github.com/vikramnegiofficial/MVPlayer/blob/main/static/screenshots/home2.png)\
-![alt text](https://github.com/vikramnegiofficial/MVPlayer/blob/main/static/screenshots/all_songs.png)&nbsp;&nbsp;
-![alt text](https://github.com/vikramnegiofficial/MVPlayer/blob/main/static/screenshots/register.png)&nbsp;&nbsp;
-![alt text](https://github.com/vikramnegiofficial/MVPlayer/blob/main/static/screenshots/login.png)&nbsp;&nbsp;
+![alt text](https://github.com/vik-negi/sangeet/blob/main/staticfiles_build/screenshots/home1.png)\
+![alt text](https://github.com/vik-negi/sangeet/blob/main/staticfiles_build/screenshots/home2.png)\
+![alt text](https://github.com/vik-negi/sangeet/blob/main/staticfiles_build/screenshots/all_songs.png)&nbsp;&nbsp;
+![alt text](https://github.com/vik-negi/sangeet/blob/main/staticfiles_build/screenshots/register.png)&nbsp;&nbsp;
+![alt text](https://github.com/vik-negi/sangeet/blob/main/staticfiles_build/screenshots/login.png)&nbsp;&nbsp;
 
 
 Please make sure to update tests as appropriate.
