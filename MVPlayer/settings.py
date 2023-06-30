@@ -157,6 +157,19 @@ CLOUDINARY_STORAGE = {
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'https://sangeet.up.railway.app'
+],
+ALLOWED_HOSTS = [
+    'localhost',
+    'https://sangeet.up.railway.app'
+],
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8000',
+    'https://sangeet.up.railway.app'
+]
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR/'static']
 STATIC_ROOT = BASE_DIR/'staticfiles'
