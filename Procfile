@@ -1,0 +1,1 @@
+web: gunicorn MVPlayer.wsgi --log-file -
