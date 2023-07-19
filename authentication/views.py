@@ -4,9 +4,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 
 from .forms import LoginForm, RegistrationUserEmail
+from django.views.decorators.csrf import csrf_exempt
 # from .forms impor
 
 # Create your views here.
+@csrf_exempt 
 def loginUser(request):
     title = "Login"
     form = LoginForm(request.POST or None)
@@ -15,6 +17,9 @@ def loginUser(request):
         'title': title,
     }
     if request.method == 'POST':
+        if not request.COOKIES.get('csrftoken') == request.POST.get('csrfmiddlewaretoken'):
+            messages.info(request, "Invalid request")
+            return redirect('login')
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -30,6 +35,7 @@ def loginUser(request):
     else:
         return render(request, 'authentication/login.html', context=context)
 
+@csrf_exempt 
 def register(request):
     title = "Create Account"
     if request.method == "POST":

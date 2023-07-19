@@ -14,6 +14,8 @@ def index(request):
         recent_id = [each['song_id'] for each in recent]
         recent_id = recent_id if len(recent_id) < 10 else recent_id[:10]
         recentlyPlayed_unsorted = Song.objects.filter(id__in=recent_id,recent__user=request.user)
+        if(len(recentlyPlayed_unsorted) == 0):
+            recentlyPlayed_unsorted = Song.objects.filter(id__in=1)
         recentlyPlayed = list()
         for id in recent_id:
             recentlyPlayed.append(recentlyPlayed_unsorted.get(id=id))
