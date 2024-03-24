@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
+    last_played_song =[]
     #Display recent songs
     if not request.user.is_anonymous :
         recent = list(Recent.objects.filter(user=request.user).values('song_id').order_by('-id'))
@@ -15,7 +16,7 @@ def index(request):
         recent_id = recent_id if len(recent_id) < 10 else recent_id[:10]
         recentlyPlayed_unsorted = Song.objects.filter(id__in=recent_id,recent__user=request.user)
         if(len(recentlyPlayed_unsorted) == 0):
-            recentlyPlayed_unsorted = Song.objects.filter(id__in=1)
+            recentlyPlayed_unsorted = Song.objects.filter(id__in=[1])
         recentlyPlayed = list()
         for id in recent_id:
             recentlyPlayed.append(recentlyPlayed_unsorted.get(id=id))
@@ -50,6 +51,8 @@ def index(request):
     sliced_ids = [each['id'] for each in songs_english][:]
     indexpage_englishSongs = Song.objects.filter(id__in=sliced_ids)
 
+    print("english : ", indexpage_englishSongs[0])
+
     # For Korean Songs
     korean_songs = list(Song.objects.filter(language='korean').values('id'))
     sliced_ids = [each['id'] for each in korean_songs][:]
@@ -74,6 +77,8 @@ def index(request):
         'languages': languages,
         'query_search':False,
     }
+    for song in indexpage_hindiSongs:
+        print(song.songImg)
     return render(request, 'Music/index.html', context=context)
 
 
@@ -123,7 +128,6 @@ def englishSongs(request):
     return render(request, 'Music/english.html',context=context)
     # return HttpResponse("<h2>hello</h2>", englishSongs[0].name)
 
-
 def albums(request):
     songs_list = Song.objects.all()
     return render(request, 'Music/albums.html', context={"song_list": songs_list})
@@ -138,7 +142,6 @@ def play_song(request, song_id):
     data = Recent(song=songs,user=request.user)
     data.save()
     return redirect('songs')
-
 
 @login_required(login_url='login')
 def play_song_index(request, song_id):
@@ -160,7 +163,6 @@ def play_recent_song(request, song_id):
     data = Recent(song=songs,user=request.user)
     data.save()
     return redirect('recently')
-
 
 def song(request):
     songs = Song.objects.all()
@@ -295,7 +297,7 @@ def detail(request, song_id):
 def song_details(request, song_id):
     songs = Song.objects.filter(id=song_id).first()
     song_detail = Song.objects.filter(id=song_id).values().first()
-    print(f'songs: {song}')
+    # print(f'songs: {song} , {song_detail["songImg"]}')
 
     # Add data to recent database
     if list(Recent.objects.filter(song=songs,user=request.user).values()):
@@ -311,6 +313,14 @@ def song_details(request, song_id):
         last_played_song = Song.objects.get(id=last_played_id)
     else:
         last_played_song = Song.objects.get(id=7)
+    song_list =[]
+
+    album_name = song_detail['album']
+
+    for song in Song.objects.filter(album=album_name):
+        song_list.append(song)
+
+    print(f'song_list: {song_list} album_name: {album_name} song_detail: {song_detail}')
 
 
     playlists = Playlist.objects.filter(user=request.user).values('playlistName').distinct
@@ -339,7 +349,7 @@ def song_details(request, song_id):
         #     messages.success(request, "Removed from favorite!")
         #     return redirect('detail', song_id=song_id)
 
-    context = {'album': song_detail, 'playlists': playlists, 'is_favourite': "is_favourite",'last_played':last_played_song}
+    context = {'album': song_detail, 'playlists': playlists, 'is_favourite': "is_favourite",'last_played':last_played_song, 'song_list' : song_list}
     return render(request, 'Music/song_details.html', context=context)
 
 

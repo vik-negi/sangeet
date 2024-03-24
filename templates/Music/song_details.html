@@ -5,7 +5,7 @@ La La La {% endblock title %} {% block header %}
 <link rel="stylesheet" href="{% static 'Music/css/sidebar.css' %}" />
 
 {% endblock header %} {% block body %}
-<div style="margin-top: 100px;"></div>
+<div style="margin-top: 100px"></div>
 <div class="mini-nav container d-flex">
   <a href="#">home</a>
   <div id="playlist">
@@ -62,7 +62,10 @@ La La La {% endblock title %} {% block header %}
     <div class="album-img">
       <!-- <img src="{%static 'img/music/album_details/artist-img.webp' %}"> -->
       {% if album.songImg %}
-      <img id="album-img" src="{{ album.songImg.url }}" />
+      <img
+        id="album-img"
+        src="https://res.cloudinary.com/drngfg58j/raw/upload/v1/{{ album.songImg }}"
+      />
       {% else %}
       <h3>Loading....</h3>
       {% endif %}
@@ -130,8 +133,10 @@ La La La {% endblock title %} {% block header %}
         </div>
       </div>
     </div>
+    <p class="font-weight-bold text-[#1DB954] text-2xl"
+    >count {{ song_list|length}}</h1>
 
-    {% if song_list.count > 0 %} {% for song in song_list %}
+    {% if song_list %} {% for song in song_list %}
     <div class="album-song">
       <div class="album-song-container">
         {% if song.songImg %}

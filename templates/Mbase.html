@@ -69,39 +69,55 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'index'%}">Home</a>
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'index'%}"
+                >Home</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{%url 'all_songs'%}">All Songs</a>
             </li>
           </ul>
           <div class="wrap">
-          <form class="d-flex me-auto search" role="search" method="get">
+            <form
+              action="/songs/"
+              method="get"
+              class="d-flex me-auto search"
+              role="search"
+              method="get"
+            >
               <input
                 class="form-control me-2 searchTerm"
                 type="search"
                 name="q"
-              value="{{ request.GET.q }}"
+                value="{{ request.GET.q }}"
                 placeholder="What are you looking for?"
                 aria-label="Search"
               />
               <button type="submit" class="searchButton">
                 <i class="fa fa-search"></i>
               </button>
-              
-              <button type="button" class="filterButton" onclick="openSearchFilter()">
+
+              <button
+                type="button"
+                class="filterButton"
+                onclick="openSearchFilter()"
+              >
                 <i class="fa fa-sliders-h filterOption"></i>
-            </button>
-            
-            <div class="filterOption-div">
-              <div class="close-filterOption" onclick="closeSearchFilter()">
-                <i class="fa fa-times"></i>
-              </div>
-              <div class="filter-by">
+              </button>
+
+              <div class="filterOption-div">
+                <div class="close-filterOption" onclick="closeSearchFilter()">
+                  <i class="fa fa-times"></i>
+                </div>
+                <div class="filter-by">
                   <select
                     name="languages"
                     class="custom-select mx-1"
-                    style="border-radius: 5px">
+                    style="border-radius: 5px"
+                  >
                     <option selected="selected" disabled>Languages</option>
                     {% if languages %} {% for language in languages %}
                     <option value="{{language}}">{{language}}</option>
@@ -117,10 +133,10 @@
                     <option value="{{singer}}">{{singer}}</option>
                     {% endfor %} {% endif %}
                   </select>
+                </div>
               </div>
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
           <div class="navbar-nav user-option">
             {% if request.user.is_active %}
             <p class="greet">Hii, {{ request.user.username}}</p>
@@ -236,12 +252,12 @@
 
       soundButton.addEventListener("click", toggleSound);
 
-      function openSearchFilter (){
+      function openSearchFilter() {
         document.querySelector(".filterOption-div").style.display = "block";
-      };
-      function closeSearchFilter(){
+      }
+      function closeSearchFilter() {
         document.querySelector(".filterOption-div").style.display = "none";
-      };
+      }
     </script>
 
     {% block js %} {% endblock js %}
